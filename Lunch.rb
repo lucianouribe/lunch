@@ -1,43 +1,35 @@
 require 'pry'
+# MENU ARRAYS
 @main = [
   {item: '| ITEM |', price: 'PRICE', description: '| DESCRIPTION |', calories: 'CALORIES |'},
-  {item: 'Hamburger', price: 12.50, description: 'Quarterpound beef', calories: 2000},
-  {item: 'Pizza', price: 8.99, description: 'Quarterpound beef', calories: 1200},
-  {item: 'Tacos', price: 4.55, description: 'Quarterpound beef', calories: 1500}
+  {item: 'Hamburger', price: 12.50, description: 'Cheese Burger', calories: 2000},
+  {item: 'Pizza', price: 8.99, description: 'Napolitana', calories: 1200},
+  {item: 'Tacos', price: 4.55, description: 'with Chipotle sauce', calories: 1500}
 ]
 @drinks = [
-  {item: 'Soda', price: 2.00, description: 'Quarterpound beef', calories: 800},
-  {item: 'Beer', price: 3.00, description: 'Quarterpound beef', calories: 600},
-  {item: 'Water', price: 2.50, description: 'Quarterpound beef', calories: 150}
+  {item: 'Soda', price: 2.00, description: 'Pepsi, Coke, Schweps', calories: 800},
+  {item: 'Beer', price: 3.00, description: 'Budweiser', calories: 600},
+  {item: 'Water', price: 2.50, description: 'Perrier', calories: 150}
 ]
 @deserts = [
-  {item: 'Tiramisu', price: 5.00, description: 'Quarterpound beef', calories: 900},
-  {item: 'Creme Brulee', price: 6.00, description: 'Quarterpound beef', calories: 1000},
-  {item: 'Ice Cream', price: 3.50, description: 'Quarterpound beef', calories: 1200}
+  {item: 'Tiramisu', price: 5.00, description: '100 gr slice', calories: 900},
+  {item: 'Creme Brulee', price: 6.00, description: 'Small pot', calories: 1000},
+  {item: 'Ice Cream', price: 3.50, description: 'Two balls', calories: 1200}
 ]
 
+# TEMPORARY ORDER ARRAY
 @order = []
 
+# PUTS MENU
 def options
   puts "--- GREAT DELICIOUS AND NUTRICIOUS GANDMAS MENU --- \n\n"
   @main.each { |x, i| puts "#{x[:item]} $#{x[:price]} #{x[:description]} #{x[:calories]}"}
   @drinks.each { |x, i| puts "#{x[:item]} $#{x[:price]} #{x[:description]} #{x[:calories]}"}
   @deserts.each { |x, i| puts "#{x[:item]} $#{x[:price]} #{x[:description]} #{x[:calories]}"}
 end
-# options
-
-def start
-  puts "Hello welcome to my restaurant, do you want to see the menu?"
-  answer = gets.strip
-  if answer.include?('y')
-    options
-    order_food
-  else
-    puts 'So what are you doing here? Go away!'
-  end
-end
 
 
+# ORDER FOOD METHOD
 def order_food
   puts "So, what's your order?"
   choice = gets.strip.downcase
@@ -56,7 +48,7 @@ def order_food
   end
 end
 
-
+# DRINK CHOICE METHOD
 def add_drink(food)
   puts "#{food}! Great its super tasty"
   puts "What do you want to drink?"
@@ -76,6 +68,7 @@ def add_drink(food)
   end
 end
 
+# THE WEATHER DETAIL METHOD
 def weather(liquid)
   weather = ['hot', 'warm', 'unbearable', 'sunny']
   puts "A #{liquid} will be! Yeah, its too #{weather[rand(4)]} in here"
@@ -83,6 +76,7 @@ def weather(liquid)
   add_desert()
 end
 
+# DESERT CHOICE
 def add_desert
   choice = gets.strip
   if choice.include?('tira')
@@ -100,6 +94,7 @@ def add_desert
   end
 end
 
+# CONFIRM MENU
 def confirmation
   puts "So, your order is #{@ordered_food}, #{@ordered_drink} for dinking and #{@ordered_desert}"
   puts "Is it true that you want something else?"
@@ -112,6 +107,7 @@ def confirmation
   end
 end
 
+# SECOND CHOICE
 def resending
   puts "What would it be?"
   @last_choice = gets.strip
@@ -137,11 +133,13 @@ def resending
   more_stuff
 end
 
+# RECAP
 def more_stuff
   puts "So, your order is #{@ordered_food}, #{@ordered_drink} for dinking, #{@ordered_desert} and #{@last_choice}"; sleep 1
   bill
 end
 
+# BILL
 def bill
   puts "Time has passed by..."; sleep 1
   puts "Sorry my shift is over I have to charge you right now"
@@ -155,6 +153,7 @@ def bill
   paying_methods
 end
 
+# PAYING METHODS
 def paying_methods
   puts "Are you paying with cash or credit card"
   money_type = gets.strip
@@ -177,12 +176,14 @@ def paying_methods
   end
 end
 
+# CALORIES CALCULATION METHOD
 def caloric_bomb
   sum = 0
   sub_total = @order.map { |p| sum+=p[:calories]}
   print @caloric_bomb = sub_total.last
 end
 
+# SUPER ANNIYING GOODBYE
 def the_peoples_safety_obligation
   puts "Sorry"; sleep 1
   puts "just the last question. Did you came here by car?"
@@ -203,4 +204,19 @@ def the_peoples_safety_obligation
   end
 end
 
-start
+# START INTRO
+def start
+  puts "Hello welcome to my restaurant, do you want to see the menu?"
+  answer = gets.strip
+  if answer.include?('y')
+    options
+    order_food
+  else
+    puts 'So what are you doing here? Go away!'
+  end
+end
+
+# THE WHILE
+while true
+  start
+end
